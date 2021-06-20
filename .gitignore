@@ -7,3 +7,4 @@ dist/
 .env
 docker/db
 .DS_Store
+.idea

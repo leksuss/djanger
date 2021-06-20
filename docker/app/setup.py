@@ -25,9 +25,7 @@ def ask_value(is_valid, message, err_message):
     return value
 
 def is_valid(name):
-    if re.match('^[a-z_]{1}[a-z_0-9]+$', name, re.IGNORECASE):
-        return True
-    return False
+    return re.match('^[a-z_]{1}[a-z_0-9]+$', name, re.IGNORECASE)
 
 def from_env_file(filename):
     data = {}
@@ -43,31 +41,46 @@ def to_env_file(filename, data):
         f.write('\n'.join(lines))
     return data
 
-
 project_name = ask_value(is_valid,
                          lang[lg]['project_name_msg'],
                          lang[lg]['project_name_err_msg']
                          )
-
 db_name = ask_value(is_valid,
                          lang[lg]['db_name_msg'],
                          lang[lg]['db_name_err_msg']
                          )
-
 db_user = ask_value(is_valid,
                          lang[lg]['db_user_msg'],
                          lang[lg]['db_user_err_msg']
                          )
-
 db_password = ask_value(lambda x: True,
                          lang[lg]['db_passwd_msg'],
                          lang[lg]['db_passwd_err_msg']
                          )
-
+db_ext_port = ask_value(lambda x: x.isdigit(),
+                         lang[lg]['db_ext_port_msg'],
+                         lang[lg]['db_ext_port_err_msg']
+                         )
 
 docker_env = from_env_file('../../.env')
-docker_env['PROJECT_NAME'] = project_name
+docker_env.update({
+    'PROJECT_NAME': project_name,
+    'EXT_POSTGRES_PORT': db_ext_port,
+})
+to_env_file('../../.env', docker_env)
+
+db_env = {
+    'POSTGRES_USER': db_user,
+    'POSTGRES_PASSWORD': db_password,
+    'POSTGRES_DB': db_name,
+    'POSTGRES_PORT': db_ext_port,
+    'POSTGRES_HOSTNAME': 'localhost',
+}
 
 project_dir = '../../src/' + project_name
 run_command('mkdir ' + project_dir)
-to_env_file(project_dir + '/.env', docker_env)
+to_env_file(project_dir + '/.env', db_env)
+run_command(f'django-admin startproject {project_name} ../../src')
+
+
+

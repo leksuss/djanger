@@ -8,5 +8,7 @@ lang = {
         'db_user_err_msg': 'DB username is wrong syntax, must be [a-zA-Z0-9_]',
         'db_passwd_msg': 'Please, enter DB user password: ',
         'db_passwd_err_msg': '',
+        'db_ext_port_msg': 'Please, enter DB port to connect outside compose network: ',
+        'db_ext_port_err_msg': 'DB port is wrong, must be int',
     }
 }

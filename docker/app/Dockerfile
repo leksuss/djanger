@@ -1,11 +1,10 @@
-FROM python:3.7-slim
+FROM python:3.9-slim
 
 RUN apt update && apt install -y libpcre3 mime-support postgresql-client
 
 WORKDIR /home/src
 
-COPY requirements.txt requirements.txt
+COPY ../../requirements.txt requirements.txt
 
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

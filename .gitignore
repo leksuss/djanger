@@ -1,10 +1,9 @@
 *.pyc
 __pycache__/
 *.egg-info/
-.venv/
 .idea/
 public/media/
 dist/
 .env
-docker/postgres/data
-docker/postgres/logs
+docker/db
+.DS_Store

@@ -1,9 +1,6 @@
-asgiref==3.2.10
-Django==3.1.16
+asgiref==3.3.4
+Django==3.2.4
 django-environ==0.4.5
-django-filter==2.3.0
-djangorestframework==3.11.2
-Markdown==3.2.2
-psycopg2-binary==2.8.5
-pytz==2020.1
-sqlparse==0.3.1
+psycopg2-binary==2.9.1
+pytz==2021.1
+sqlparse==0.4.1

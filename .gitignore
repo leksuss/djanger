@@ -4,7 +4,6 @@ __pycache__/
 .idea/
 public/media/
 dist/
-.env
 docker/db
 .DS_Store
 .idea
